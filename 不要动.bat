@@ -1,0 +1,1 @@
+node F:\JS\index.js 1>>F:\JS\Log.log 2>&1
