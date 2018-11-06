@@ -57,6 +57,7 @@ function GamePass(user, password, proxy) {
   this.proxy = !!proxy ? proxy : this.proxy;
   this.args = ["--no-sandbox", "--disable-setuid-sandbox"];
   this.name = "";
+  this.time=0;
 }
 
 //原型
@@ -77,6 +78,12 @@ GamePass.prototype = {
     });
   },
   login: async function () {
+    this.time+=1;
+    if(this.time>5){
+      console.log(now(),": "+this.user+"登录失败5次，请检查代理是否可用！");
+      this.sedMail(this.user, "登录失败5次，请检查代理是否可用！");
+      return;
+    }
     if (!!this.proxy) {
       this.args.push("--proxy-server=" + this.proxy);
       console.log(now(),":",this.user+":proxy is "+this.proxy);
